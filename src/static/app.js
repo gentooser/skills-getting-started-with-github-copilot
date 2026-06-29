@@ -195,7 +195,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (themeToggle) {
     themeToggle.addEventListener("click", () => {
       const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
-      localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+      } catch (error) {
+        console.warn("Unable to persist theme preference:", error);
+      }
       applyTheme(nextTheme);
     });
   }
